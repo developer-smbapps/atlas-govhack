@@ -1,0 +1,6 @@
+langchain
+matplotlib
+pandas
+langchain-community
+openai
+dash
