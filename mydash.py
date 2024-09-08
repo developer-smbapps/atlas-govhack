@@ -9,16 +9,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # df = pd.read_csv(
 #     "http://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv"
 # )
-
-# Read all the customer records from the sqlite table customers
-con = sqlite3.connect("data/chinook.db")
-df = pd.read_sql_query("SELECT * from customers", con)
-
-# Verify that result of SQL query is stored in the dataframe
-print(df.head())
-
-con.close()
-
 app = Dash()
 
 app.layout = [
@@ -32,6 +22,15 @@ app.layout = [
 
 @callback(Output("graph-content", "figure"), Input("dropdown-selection", "value"))
 def update_graph(value):
+    # Read all the customer records from the sqlite table customers
+    con = sqlite3.connect("data/chinook.db")
+    df = pd.read_sql_query("SELECT * from customers", con)
+
+    # Verify that result of SQL query is stored in the dataframe
+    print(df.head())
+
+    con.close()
+
     dff = df
     return px.line(dff, x="year", y="pop")
 
